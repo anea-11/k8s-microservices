@@ -32,3 +32,22 @@ Memory is expressed in Mi (mebibytes): 1Ki(kibibyte) = 2^10B; 1Mi(mebybyte) = 2^
 
 # helm
 helm create microservice - to create helmchart named microservice (helmchart)
+microservices/Chart.yaml        - contains chart metadata
+microservices/charts/           - contains dependencies (other charts, which we don't have in this example)
+microservices/templates/        - core directory, this is where most helm work is done
+microservices/values/           - this is where we write the values that are substituted in templates
+
+You should use camel case for your helm template variables.
+
+helm template -f helm-values/emailservice-values.yaml microservice/ - this only check if you are going to generate a valid k8S manifest, but does not generate it
+helm template -f /your/values/file                    /chart/directory
+
+helm lint -f helm-values/emailservice-values.yaml microservice/     - to lint the file
+
+helm install -f  helm-values/emailservice-values.yaml   emailservice  microservice      - to deploy emailservice to k8S cluster
+                 values-file                            release-name  chart-directory   - release-name is a term from helm world
+
+
+You can overwrite defined values from command line with helm commands.
+
+
