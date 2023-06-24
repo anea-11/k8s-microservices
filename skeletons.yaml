@@ -73,3 +73,5 @@ spec:
 # underlying hardware - basically whatever number of physical CPUs/cores you have on the node, it is treated as a collective pool of CPU, and millicores are
 # relative to this collective pool
 # memory is expressed in Mi (mebibytes): 1Ki(kibibyte) = 2^10B; 1Mi(mebybyte) = 2^10 * 2^10 B = 2^20 B
+
+# Some security best practices: scan images for vulnerabilities; don't run containers with root access; update k8S to latest version
