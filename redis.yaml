@@ -28,10 +28,12 @@ spec:
 #        persistentVolumeClaim:
 #          claimName: redis-pvc
         readinessProbe:
+          initialDelaySeconds: 5  # if you know that the app takes a while to start, you can use delay before the first readiness check is executed
           periodSeconds: 5
           tcpSocket:
             port: 6379
         livenessProbe:
+          initialDelaySeconds: 5  # if you know that the app takes a while to start, you can use delay before the first liveness check is executed
           periodSeconds: 5
           tcpSocket:
             port: 6379

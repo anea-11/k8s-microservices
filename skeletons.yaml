@@ -47,8 +47,11 @@ spec:
 # livenessProbe: k8S is automatically checking if pod is alive and well; if something is wrong with the pod, it will restart it (autohealing). However, k8S 
 # does not know on its own if the app that's running inside of a container that's running in that pod is ok. For example, you can have a pod that's not crashing
 # but the app inside of it is stuck because of some bug. Liveness probe is used to check if the app is healthy. It is configured on container level. This probe
-# should be a tiny program or a script that's running inside of the container and periodically checks if the app is healthy (by pinging its endpoint). Sometimes
-# developers will provide this app, and other times it's the devops engineer that should implement it.
+# can be a tiny program or a script that's running inside of the container and periodically checks if the app is healthy (by pinging its endpoint). Sometimes
+# developers will provide this app, and other times it's the devops engineer that should implement it. Another mechanism that's used for this probe is tcpSocket.
+# In livenessProbe definition, you specify a port on which k8S will try to open a socket. If this socket opens successfully, the app is considered to be alive.
+# ANother mechanism is httpGet. The app itself can expose an endpoint that the liveness probe will hit to check for the health status.
+# tcpSocket example: redis; health-check app example: all the other microservices; httpGet example: not commited, search online
 
 # readinessProbe: since k8S is aware of the pod state, but not aware of the state of the app that's running inside of it, a mechanism that will allow k8S to 
 # figure out that the app started successfully is needed. Readiness probe is used for this. It is very similar to liveness probe, but it's used during the app
