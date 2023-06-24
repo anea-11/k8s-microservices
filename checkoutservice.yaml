@@ -40,6 +40,13 @@ spec:
           periodSeconds: 5
           exec: 
             command: ["/bin/grpc_health_probe", "-addr=:5050"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
 ---
 apiVersion: v1
 kind: Service

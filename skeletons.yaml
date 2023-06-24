@@ -28,6 +28,13 @@ spec:
           periodSeconds: x
           exec: 
             command: ["xxx-exec-command", "xxx-args"]
+        resources:
+          requests:
+            cpu: 100m   
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
 
 ---
 apiVersion: v1
@@ -57,3 +64,12 @@ spec:
 # figure out that the app started successfully is needed. Readiness probe is used for this. It is very similar to liveness probe, but it's used during the app
 # startup. Some apps take a long time to start (few mins), so if k8S does not know that the app isn't up and running yet, it will start forwarding requests to
 # it and we will get errors. Readiness probes tells k8S once the startup process is done and the app is up.
+
+# resources: we should tell k8S what cpu and memory resources our apps need; we get this info from developers; 
+# resources:requests: this defines the cpu and memory that our app needs to run
+# resources:limits: this defines the limits for our app; if the app uses more than what's specified here, that is not ok and it's probably a bug, so k8s should
+# kill its pod; 
+# cpu is expressed in millicores - millicores indicate the relative share of the collective CPU pool available on a node; this abstracts away the actual
+# underlying hardware - basically whatever number of physical CPUs/cores you have on the node, it is treated as a collective pool of CPU, and millicores are
+# relative to this collective pool
+# memory is expressed in Mi (mebibytes): 1Ki(kibibyte) = 2^10B; 1Mi(mebybyte) = 2^10 * 2^10 B = 2^20 B
