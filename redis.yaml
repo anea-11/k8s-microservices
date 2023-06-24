@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-cart
+  template:
+    metadata:
+      labels:
+        app: redis-cart
+    spec:
+      containers:
+      - name: server
+        image: redis
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - mountPath: /data
+          name: redis-data
+        volumes:
+        - name: redis-data
+          emptyDir: {}        # this is not persistent - emptyDir is created when pod starts and can be used until it dies
+                              # it should not be done this way, this is only for demo purposes
+#      - name: redis-data       this is what it would look like if I were to use PVC named redis-pvc
+#        persistentVolumeClaim:
+#          claimName: redis-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-cart
+spec:
+  type: ClusterIP
+  selector:
+    app: redis-cart
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
