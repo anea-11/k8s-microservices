@@ -50,4 +50,11 @@ helm install -f  helm-values/emailservice-values.yaml   emailservice  microservi
 
 You can overwrite defined values from command line with helm commands.
 
+# helmfile
+Declarative file to tell helm to deploy multiple releases (from helm charts) in k8S cluster.
+
+helmfile sync - command to sync your k8S cluster with the state defined in helmfile (it will deploy releases if needed etc...)
+helmfile destroy - to uninstall stuff installed with helm
+
+- helmfile is a separate tool that needs to be installed in addition to helm and kubectl
 

@@ -1,0 +1,57 @@
+# helmfile sync - to sync your k8s cluster with the state defined in this helmfile
+
+releases:
+
+  # helm install -f helm-values/emailservice-values.yaml emailservice helm-chart-microservice maps to this  
+  - name: adservice
+    chart: helm-chart-microservice
+    values: 
+      - helm-values/adservice-values.yaml
+
+  - name: cartservice
+    chart: helm-chart-cartservice
+    values: 
+      - helm-values/cartservice-values.yaml
+
+  - name: checkoutservice
+    chart: helm-chart-checkoutservice
+    values: 
+      - helm-values/checkoutservice-values.yaml
+
+  - name: currencyservice
+    chart: helm-chart-currencyservice
+    values: 
+      - helm-values/currencyservice-values.yaml
+
+  - name: emailservice
+    chart: helm-chart-microservice
+    values: 
+      - helm-values/emailservice-values.yaml
+
+  - name: frontend
+    chart: helm-chart-microservice
+    values: 
+      - helm-values/frontend-values.yaml
+
+  - name: paymentservice
+    chart: helm-chart-microservice
+    values: 
+      - helm-values/paymentservice-values.yaml
+
+  - name: productcatalogservice
+    chart: helm-chart-microservice
+    values: 
+      - helm-values/productcatalogservice-values.yaml
+
+  - name: recommendationservice
+    chart: helm-chart-microservice
+    values: 
+      - helm-values/recommendationservice-values.yaml
+
+  - name: shippingservice
+    chart: helm-chart-microservice
+    values: 
+      - helm-values/shippingservice-values.yaml
+
+# I left out redis, because it is third-party, so it should have its own helm chart and I was lazy to make it.
+
