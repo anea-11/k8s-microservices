@@ -20,6 +20,10 @@ spec:
         env:
         - name: PORT
           value: "9555"
+        livenessProbe:
+          periodSeconds: 5
+          exec: 
+            command: ["/bin/grpc_health_probe", "-addr=:9555"]
 ---
 apiVersion: v1
 kind: Service

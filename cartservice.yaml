@@ -21,7 +21,12 @@ spec:
         - name: PORT
           value: "7070"
         - name: REDIS_ADDR
-          value: TODO
+          value: "redis-cart:6379"
+        livenessProbe:
+          periodSeconds: 5
+          exec: 
+            command: ["/bin/grpc_health_probe", "-addr=:7070"]
+        
 
 ---
 apiVersion: v1

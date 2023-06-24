@@ -13,10 +13,18 @@ spec:
         app: xxx
     spec:
       containers:
-        - name: xxx
-          image: xxx
-          ports:
-            - containerPort: xxx
+      - name: xxx
+        image: xxx
+        ports:
+        - containerPort: xxx
+        env:
+        - name: ENV_VAR_1_NAME
+          value: "ENV_VAR_1_VALUE"
+        livenessProbe:
+          periodSeconds: x
+          exec: 
+            command: ["xxx-exec-command", "xxx-args"]
+
 ---
 apiVersion: v1
 kind: Service
@@ -30,5 +38,10 @@ spec:
       port: 80
       targetPort: 8080
   type: ClusterIP
-  
 
+---
+# livenessProbe: k8S is automatically checking if pod is alive and well; if something is wrong with the pod, it will restart it (autohealing). However, k8S 
+# does not know on its own if the app that's running inside of a container that's running in that pod is ok. For example, you can have a pod that's not crashing
+# but the app inside of it is stuck because of some bug. Liveness probe is used to check if the app is healthy. It is configured on container level. This probe
+# should be a tiny program or a script that's running inside of the container and periodically checks if the app is healthy (by pinging its endpoint). Sometimes
+# developers will provide this app, and other times it's the devops engineer that should implement it.
