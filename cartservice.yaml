@@ -26,6 +26,11 @@ spec:
           periodSeconds: 5
           exec: 
             command: ["/bin/grpc_health_probe", "-addr=:7070"]
+        readinessProbe:
+          periodSeconds: 5
+          exec: 
+            command: ["/bin/grpc_health_probe", "-addr=:7070"]
+        
         
 
 ---

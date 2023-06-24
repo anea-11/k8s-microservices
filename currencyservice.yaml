@@ -24,6 +24,10 @@ spec:
           periodSeconds: 5
           exec: 
             command: ["/bin/grpc_health_probe", "-addr=:7000"]
+        readinessProbe:
+          periodSeconds: 5
+          exec: 
+            command: ["/bin/grpc_health_probe", "-addr=:7000"]
 ---
 apiVersion: v1
 kind: Service

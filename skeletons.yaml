@@ -24,6 +24,10 @@ spec:
           periodSeconds: x
           exec: 
             command: ["xxx-exec-command", "xxx-args"]
+        readinessProbe:
+          periodSeconds: x
+          exec: 
+            command: ["xxx-exec-command", "xxx-args"]
 
 ---
 apiVersion: v1
@@ -45,3 +49,8 @@ spec:
 # but the app inside of it is stuck because of some bug. Liveness probe is used to check if the app is healthy. It is configured on container level. This probe
 # should be a tiny program or a script that's running inside of the container and periodically checks if the app is healthy (by pinging its endpoint). Sometimes
 # developers will provide this app, and other times it's the devops engineer that should implement it.
+
+# readinessProbe: since k8S is aware of the pod state, but not aware of the state of the app that's running inside of it, a mechanism that will allow k8S to 
+# figure out that the app started successfully is needed. Readiness probe is used for this. It is very similar to liveness probe, but it's used during the app
+# startup. Some apps take a long time to start (few mins), so if k8S does not know that the app isn't up and running yet, it will start forwarding requests to
+# it and we will get errors. Readiness probes tells k8S once the startup process is done and the app is up.
